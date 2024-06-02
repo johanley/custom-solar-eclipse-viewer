@@ -47,4 +47,34 @@ all printed on a medium-sized card which you can hang around your neck.
 </ul>
 
 
+<h2>Implementation Notes</h2>
+<ul>
+ <li>the <a href='https://github.com/johanley/custom-solar-eclipse-viewer/blob/master/src/custom/solar/eclipse/viewer/math/Polynomial.java'>Polynomial</a> 
+ class is a neat little thing.
+ <li>Code that lets me mix-and-match <a href='https://docs.oracle.com/javase/8/docs/api/java/awt/geom/AffineTransform.html'>AffineTransform</a> objects. 
+ This was very useful in removing repeated code, in making geometrical operations made up of several sequential operations easy to implement and understand.
+ This is implemented in the <a href='https://github.com/johanley/custom-solar-eclipse-viewer/tree/master/src/custom/solar/eclipse/viewer/draw/mix'>custom.solar.eclipse.draw.mix</a> package.
+</ul>
+
+<h2>References</h2>
+<ul>
+ <li><em>Elements of Solar Eclipses</em>, Jean Meeus, 1989. This was my main reference. 
+ <li><em>Explanatory Supplement to the Astronomical Ephemeris</em>, 1961.
+</ul>
+
+<h2>Remarks Regarding Meeus' Documentation</h2>
+
+<p>On page 26, equation (7) for the parallactic angle, I use the South Celestial Pole when the location is in the southern hemisphere. 
+ (His remark about <em>cos q</em> being the same sign as <em>η</em> may amount to the same thing; I'm not sure.)
+
+<P> On page 27, <em>The times of interior contacts...</em> should reference the absolute value of <em>L2'</em>, not <em>L2'</em> itself.
+ 
+<P>On page 27, there seems to be a small numerical error in the worked example, for the value of <em>H</em>.
+The stated value of 1.411188 should be 1.411192, according to his data. 
+This amounts only to a very small angle, on the order of 0.01 arc-seconds.
+(The source of the difference may be in the value of a constant.) 
+
+<P>Meeus doesn't mention that there can be a  <em>change of day</em> in the calculation of local circumstances. 
+That is, the correction applied to <em>T0</em> may push the value out of the range 0..24.
+
 </html>

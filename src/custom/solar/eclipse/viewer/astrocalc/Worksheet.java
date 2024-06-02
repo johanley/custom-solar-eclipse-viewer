@@ -307,9 +307,13 @@ final class Worksheet {
     double hours = bessel.T0() + t - ΔT/SECONDS_PER_HOUR; //hours
     if (hours < 0) {
       //need to go to the previous day
-      //there are indeed cases in which T0 is 0; must be careful
       date = date.minusDays(1);
       hours = hours + 24.0;
+    }
+    else if (hours > 23) {
+      //need to go to the next day
+      date = date.plusDays(1);
+      hours = hours - 24.0;
     }
     long nanos = Math.round(hours * NANOS_PER_HOUR);
     LocalTime time = LocalTime.ofNanoOfDay(nanos);
