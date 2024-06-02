@@ -18,10 +18,11 @@ import custom.solar.eclipse.viewer.draw.mix.DrawingContext;
 /** Title on the front of the viewer. */
 final class Title implements Draw {
   
-  Title(Config config, EclipseType eclipseType, LocalDateTime eclipseCivilDateTime) {
+  Title(Config config, EclipseType eclipseType, LocalDateTime eclipseCivilDateTime, double yLevel) {
     this.config = config;
     this.eclipseType = eclipseType;
     this.eclipseCivilDateTime = eclipseCivilDateTime;
+    this.yLevel = yLevel;
   }
   
   /** The date of the eclipse, along with the weekday. */
@@ -31,7 +32,7 @@ final class Title implements Draw {
     
     DrawingContext context = new ChangeFontSize(g, 1.45f); //applied first, reversed last
     context = ChangeFontBold.chain(context, g);
-    context = ChangeCoordsTranslate.chain(context, g, where(0.07));
+    context = ChangeCoordsTranslate.chain(context, g, where(yLevel));
     context = ChangeCoordsCenterText.chain(context, g, text); //centering needs to be last in the chain
     
     Draw drawer = new DrawText(text);
@@ -41,6 +42,7 @@ final class Title implements Draw {
   private Config config;
   private EclipseType eclipseType;
   private LocalDateTime eclipseCivilDateTime;
+  private double yLevel;
   
   private Point2D.Double where(double yPercent){
     return new Point2D.Double(config.width() * 0.5, config.viewerHeight() * yPercent + config.viewerTopMargin());

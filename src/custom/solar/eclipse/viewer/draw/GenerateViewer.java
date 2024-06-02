@@ -32,10 +32,10 @@ public final class GenerateViewer extends GeneratePdfABC {
     Set<Draw> drawers = new LinkedHashSet<>(); //iteration will mirror insertion-order
     drawers.add(new Border(config, BORDER_WIDTH));
     drawers.add(new Holes(config, false, HOLE_RADIUS));
-    drawers.add(new Title(config, eclipse.eclipseType(), eclipse.maxEclipse().when()));
-    drawers.add(new LocationEtc(config, eclipse, false));
-    drawers.add(new FooterFinePrint(config, eclipse.magnitude()));
-    drawers.add(new QRLink(config, config.qrCode1(), 0.46, 0.25));
+    drawers.add(new Title(config, eclipse.eclipseType(), eclipse.maxEclipse().when(), Y_LEVEL.TITLE));
+    drawers.add(new LocationEtc(config, eclipse, false, Y_LEVEL.LOCATION_ETC));
+    drawers.add(new QRLink(config, config.qrCode1(), 0.46, Y_LEVEL.QR_1));
+    drawers.add(new FooterFinePrint(config, eclipse.magnitude(), Y_LEVEL.FOOTER_FINE_PRINT));
     drawers.add(new RulerSeparation(config));
     drawers.add(new RulerPositionAngle(config));
     drawThe(drawers, g);
@@ -56,8 +56,6 @@ public final class GenerateViewer extends GeneratePdfABC {
     
     //batch mode
     
-    //Should I put the ylevel values in the ctors?
-    
     //average % clouds, average daytime high temperature
     
     // "Objects aligned to the axis of the Sun’s crescent will cast sharper shadows." - https://www.planetary.org/articles/eclipse-2024-checklist
@@ -76,15 +74,15 @@ public final class GenerateViewer extends GeneratePdfABC {
     log("Building page 2.");
     Set<Draw> drawers = new LinkedHashSet<>(); //iteration will mirror insertion-order
     drawers.add(new Border(config, BORDER_WIDTH));
-    drawers.add(new Title(config, eclipse.eclipseType(), eclipse.maxEclipse().when()));
+    drawers.add(new Title(config, eclipse.eclipseType(), eclipse.maxEclipse().when(), Y_LEVEL.TITLE - 0.01));
     drawers.add(new Holes(config, true, HOLE_RADIUS));
-    drawers.add(new LocationEtc(config, eclipse, true));
-    drawers.add(new PartialPhasesChart(config, eclipse));
-    drawers.add(new QRLink(config, config.qrCode2(), 0.50, 0.76));
+    drawers.add(new LocationEtc(config, eclipse, true, Y_LEVEL.LOCATION_ETC));
+    drawers.add(new PartialPhasesChart(config, eclipse, Y_LEVEL.PARTIAL_PHASES));
+    drawers.add(new QRLink(config, config.qrCode2(), 0.50, Y_LEVEL.QR_2));
     if (EclipseType.Total == eclipse.eclipseType()) {
-      drawers.add(new TotalityAdvice(config));
+      drawers.add(new TotalityAdvice(config, Y_LEVEL.TOTALITY_ADVICE));
     }
-    drawers.add(new ProducedBy(config));
+    drawers.add(new ProducedBy(config, Y_LEVEL.PRODUCED_BY));
     drawThe(drawers, g);
   }
   
@@ -92,7 +90,19 @@ public final class GenerateViewer extends GeneratePdfABC {
   
   private static final float BORDER_WIDTH = 2.0F;
   private static final Double HOLE_RADIUS = 4.0;
-
+  
+  /** This class just groups together similar things. */
+  private static final class Y_LEVEL {
+    static double TITLE = 0.06;
+    static double LOCATION_ETC = 0.30;
+    static double QR_1 = 0.27;
+    static double QR_2 = 0.76;
+    static double FOOTER_FINE_PRINT = 0.96;
+    static double PRODUCED_BY = 0.96;
+    static double TOTALITY_ADVICE = 0.80;
+    static double PARTIAL_PHASES = 0.5;
+  }
+  
   private void drawThe(Collection<Draw> drawers, Graphics2D g) {
     for(Draw drawer : drawers) {
       drawer.draw(g);

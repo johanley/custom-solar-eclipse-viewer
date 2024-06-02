@@ -16,8 +16,9 @@ import custom.solar.eclipse.viewer.draw.mix.DrawingContext;
 */
 final class ProducedBy implements Draw {
   
-  ProducedBy(Config config) {
+  ProducedBy(Config config, double yLevel) {
     this.config = config;
+    this.yLevel = yLevel;
   }
   
   @Override public void draw(Graphics2D g) {
@@ -25,6 +26,7 @@ final class ProducedBy implements Draw {
   }
 
   private Config config;
+  private double yLevel;
   
   private void render(String text, Graphics2D g) {
     DrawingContext context = new ChangeFontSize(g, 0.80f); //applied first, reversed last
@@ -38,7 +40,7 @@ final class ProducedBy implements Draw {
   private Point2D.Double where(){
     return new Point2D.Double(
       config.width() * 0.5 + config.viewerWidth() * 0.45, 
-      config.viewerHeight() * 0.96 + config.viewerTopMargin()
+      config.viewerHeight() * yLevel + config.viewerTopMargin()
     );
   }
 }

@@ -24,25 +24,26 @@ import custom.solar.eclipse.viewer.math.Maths;
 /** Location name and core data for the eclipse. */
 final class LocationEtc implements Draw {
   
-  LocationEtc(Config config, EclipseDisplay eclipse, Boolean onlyLocation) {
+  LocationEtc(Config config, EclipseDisplay eclipse, Boolean onlyLocation, double yLevel) {
     this.config = config;
     this.eclipse = eclipse;
     this.onlyLocation = onlyLocation;
+    this.yLevel = yLevel;
   }
   
   /** Location name (and so on) are placed below the viewer hole. */
   @Override public void draw(Graphics2D g) {
-    renderBig(config.location(), 0.28, g);
+    renderBig(config.location(), yLevel(0), g);
     if (!onlyLocation) {
       if (eclipse.eclipseType() != EclipseType.Partial) {
         String type = eclipse.eclipseType() + "ity";
-        render(type + " Starts " + formatted(eclipse.totalityAnnularityStarts()) + ", Lasts " + duration(eclipse.durationTotalityAnnularity()), Y_LEVEL, g);
-        render("Altitude:" + altitude() + "°, Direction:" + direction(), Y_LEVEL + LINE_GAP, g);
+        render(type + " Starts " + formatted(eclipse.totalityAnnularityStarts()) + ", Lasts " + duration(eclipse.durationTotalityAnnularity()), yLevel(1), g);
+        render("Altitude:" + altitude() + "°, Direction:" + direction(), yLevel(2), g);
       }
       else {
-        render("Starts " + formatted(eclipse.partialStarts()) + ", Lasts " + duration(eclipse.durationPartial()), Y_LEVEL, g);
-        render("Max Eclipse: " + formatted(eclipse.maxEclipse().when()), Y_LEVEL + LINE_GAP, g);
-        render("Altitude:" + altitude() + "° Direction:" + direction(),  Y_LEVEL + 2*LINE_GAP, g);
+        render("Starts " + formatted(eclipse.partialStarts()) + ", Lasts " + duration(eclipse.durationPartial()), yLevel(1), g);
+        render("Max Eclipse: " + formatted(eclipse.maxEclipse().when()), yLevel(2), g);
+        render("Altitude:" + altitude() + "° Direction:" + direction(),  yLevel(3), g);
       }
     }
   }
@@ -50,7 +51,7 @@ final class LocationEtc implements Draw {
   private Config config;
   private EclipseDisplay eclipse;
   private Boolean onlyLocation;
-  private static final double Y_LEVEL = 0.32;
+  private double yLevel;
   private static final double LINE_GAP = 0.03;
   
   private String formatted(LocalDateTime when) {
@@ -110,5 +111,9 @@ final class LocationEtc implements Draw {
   
   private Point2D.Double where(double yPercent){
     return new Point2D.Double(config.width() * 0.5, config.viewerHeight() * yPercent + config.viewerTopMargin());
+  }
+  
+  private double yLevel(int line) {
+    return yLevel + line * LINE_GAP;
   }
 }

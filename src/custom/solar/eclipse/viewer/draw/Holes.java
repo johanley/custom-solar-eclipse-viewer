@@ -49,10 +49,9 @@ final class Holes implements Draw {
   }
   
   public static final Double AT_SHADOW_HOLE_LEVEL = 0.42;
-  
   private static final Double AT_LANYARD_HOLE_LEVEL = 0.96;
-  
   private static final Float AT_EYE_HOLE_LEVEL = 0.17F;
+  
   private static enum Parity {
     Left(+1),
     Right(-1);

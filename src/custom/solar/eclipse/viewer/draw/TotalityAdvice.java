@@ -14,9 +14,9 @@ import custom.solar.eclipse.viewer.draw.mix.DrawingContext;
 /** General remarks about what to look for during totality. */
 final class TotalityAdvice implements Draw {
   
-  TotalityAdvice(Config config) {
+  TotalityAdvice(Config config, double yLevel) {
     this.config = config;
-    this.where = where(0.25, 0.80);
+    this.where = where(0.25, yLevel);
   }
   
   @Override public void draw(Graphics2D g) {

@@ -15,14 +15,15 @@ import custom.solar.eclipse.viewer.math.Maths;
 /** Minor technical details. */
 final class FooterFinePrint implements Draw {
   
-  FooterFinePrint(Config config, Double magnitude) {
+  FooterFinePrint(Config config, Double magnitude, Double yLevel) {
     this.config = config;
     this.magnitude = magnitude;
+    this.yLevel = yLevel;
   }
   
   /** Technical details placed at the bottom of the card. */
   @Override public void draw(Graphics2D g) {
-    render("ΔT = " + config.ΔT() + "s", 0.96, g);
+    render("ΔT = " + config.ΔT() + "s", yLevel, g);
     //leaving this out leaves more room for the table, which seems more important:  
     //render(line1(), 0.87, g);
     //render(line2(), 0.90, g);
@@ -30,6 +31,7 @@ final class FooterFinePrint implements Draw {
 
   private Config config;
   private Double magnitude;
+  private Double yLevel;
   
   private void render(String text, double yPercent, Graphics2D g) {
     DrawingContext context = new ChangeFontSize(g, 0.75f); //applied first, reversed last

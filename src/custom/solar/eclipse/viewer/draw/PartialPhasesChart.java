@@ -30,9 +30,10 @@ import custom.solar.eclipse.viewer.math.Maths;
 /** The Sun is a circle, and the various partial phases are circular arcs (that is, circles clipped by the Sun's circle). */
 public final class PartialPhasesChart implements Draw {
   
-  PartialPhasesChart(Config config, EclipseDisplay eclipse){
+  PartialPhasesChart(Config config, EclipseDisplay eclipse, double yLevel){
     this.config = config;
     this.eclipse = eclipse;
+    this.yLevel = yLevel;
   }
   
   @Override public void draw(Graphics2D g) {
@@ -55,6 +56,7 @@ public final class PartialPhasesChart implements Draw {
   private static final double MAX_DESIRED_DISTANCE = 1.95;
   private static final int ON_LEFT = 1;
   private static final int ON_RIGHT = -1;
+  private double yLevel;
   
   private void phasesChart(int parity, List<PartialPhase> phases, Graphics2D g) {
     Point2D.Double sun = solarCenter(parity);
@@ -109,11 +111,11 @@ public final class PartialPhasesChart implements Draw {
   }
   
   private Point2D.Double solarCenter(int parity){
-    return new Point2D.Double(config.width() * 0.5 - parity * config.viewerWidth() * 0.25, config.viewerHeight() * 0.50 + config.viewerTopMargin()) ;
+    return new Point2D.Double(config.width() * 0.5 - parity * config.viewerWidth() * 0.25, config.viewerHeight() * yLevel + config.viewerTopMargin()) ;
   }
   
   private Point2D.Double solarCenterForMaximum(){
-    return new Point2D.Double(config.width() * 0.5, config.viewerHeight() * 0.75 + config.viewerTopMargin()) ;
+    return new Point2D.Double(config.width() * 0.5, config.viewerHeight() * (yLevel + 0.25) + config.viewerTopMargin()) ;
   }
   
   private void moon(PartialPhase phase, Point2D.Double sun, Graphics2D g, boolean fill) {
