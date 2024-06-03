@@ -334,9 +334,11 @@ public final class LocalCircumstances {
     else if (maximumEclipse.localEclipseType() == EclipseType.Annular) {
       Worksheet base = maximumEclipse;
       result.add(eventFor("Start of the partial phase.", startPartialEclipse, base));
+      result.addAll(eventsFor("Partial phase increasing.", partialPhasesStart, base));
       result.add(eventFor("ANNULARITY STARTS.", startTotalOrAnnularEclipse, base));
       result.add(eventFor("Maximum eclipse.", maximumEclipse, base));
       result.add(eventFor("ANNULARITY ENDS.", endTotalOrAnnularEclipse, base));
+      result.addAll(eventsFor("Partial phase decreasing.", partialPhasesEnd, base));
       result.add(eventFor("End of the partial phase.", endPartialEclipse, base));
     }
     Collections.sort(result);
