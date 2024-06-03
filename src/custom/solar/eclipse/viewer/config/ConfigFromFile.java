@@ -34,7 +34,7 @@ public final class ConfigFromFile {
       lines = reader.readFile(this.getClass(), CONFIG_INI);
     }
     else {
-      log("Reading config file: " + fileLocationOverride);
+      log("Reading config file from System property: " + fileLocationOverride);
       lines = reader.readFile(fileLocationOverride);
     }
 
