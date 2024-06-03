@@ -22,7 +22,6 @@ final class QRLink implements Draw {
    @param yFrac fraction of the viewer height. 
   */
   QRLink(Config config, QRCode qrCode, double xFrac, double yFrac){
-    this.config = config;
     this.qrCode = qrCode;
     this.where = new Point2D.Double(
       config.width() * 0.5  - config.viewerWidth() * xFrac, 
@@ -35,7 +34,6 @@ final class QRLink implements Draw {
     renderLabel(qrCode, g);
   }
   
-  private Config config;
   private QRCode qrCode;
   private Point2D.Double where;
   private static final int SIZE = 90;
@@ -43,7 +41,7 @@ final class QRLink implements Draw {
   private void render(QRCode qrCode, int size, Graphics2D g) {
     DrawingContext context = new ChangeCoordsTranslate(g, where);
 
-    Draw drawer = new DrawQrCode(config.qrCode1(), size);
+    Draw drawer = new DrawQrCode(qrCode, size);
     drawer.drawIn(context, g);
   }
   
