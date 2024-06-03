@@ -80,7 +80,7 @@ final class TimelineTable {
     for(TimelineEvent event : events) {
       addRowCell(table, Maths.hhmmss(event.plusMinus()), Element.ALIGN_CENTER);
       addRowCell(table, event.when().format(dateFormat), Element.ALIGN_CENTER);
-      addRowCell(table, magFormat.format(event.magnitude()), Element.ALIGN_CENTER);
+      addRowCell(table, magFormat.format(Maths.roundToThreePlaces(event.magnitude())), Element.ALIGN_CENTER);
       if (EclipseType.Total != eclipseType) {
         addRowCell(table, event.altitude().toString() + "°", Element.ALIGN_CENTER);
       }
