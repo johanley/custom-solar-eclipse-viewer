@@ -43,31 +43,6 @@ public final class GenerateViewer extends GeneratePdfABC {
     //the table isn't drawn using the graphics context; it's added directly to the document object itself.
     TimelineTable timeline = new TimelineTable(eclipse.eclipseType(), eclipse.timelineEvents(), document);
     timeline.draw();
-
-    //Remove cruft settings from config.ini
-    
-    //Vertical centering in the table cells.
-    
-    //ORDER FROM THOUSAND OAKS. ASK THEM FOR GLUING ADVICE.
-    //PRINT OFF SKINNERS POND AGAIN.
-    //EXPERIMENT WITH HOLE PUNCHES.
-    //CHECK IN TO GITHUB.
-    //SEND A CARD TO AUSTRALIA.
-    
-    //batch mode
-    
-    //average % clouds, average daytime high temperature
-    
-    // "Objects aligned to the axis of the Sun’s crescent will cast sharper shadows." - https://www.planetary.org/articles/eclipse-2024-checklist
-    //  chromosphere - red arc along the Moon's edge; might be visible for a few seconds
-    //shadow bands usually 30s, but maybe 2min
-    //pictures and descriptions?
-    //table for alternate locations?
-    /*
-     * Thousand Oaks is a good source for filter material:
-     * https://thousandoaksoptical.com/products/eclipse/
-     */
-
   }
   
   @Override protected void pageTwo(Graphics2D g) throws DocumentException, MalformedURLException, IOException {
